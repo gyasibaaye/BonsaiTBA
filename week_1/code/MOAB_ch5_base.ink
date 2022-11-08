@@ -104,6 +104,11 @@ graph (input: ObservableState) {
                 drive `Center Of Plate`:
                     [State.ball_x, State.ball_y]
                     in Goal.Sphere([0, 0], CloseEnough)
+                
+                # Minimize the resultant vector of the velocities
+                minimize `Ball Speed`:
+                Math.Hypot(State.ball_vel_x, State.ball_vel_y)
+                in Goal.RangeBelow(MaxVelocity * 0.01)
             }
 
             lesson `Randomize Start` {
