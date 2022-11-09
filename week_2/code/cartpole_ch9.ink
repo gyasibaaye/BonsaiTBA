@@ -24,6 +24,7 @@ type SimState {
     cart_mass: number,  # (kg)
     pole_mass: number,  # (kg)
     pole_length: number,  # (m)
+    cart_gravity: number, # (m/s^2)
 }
 
 # This is a subset of the SimState that we'll make available to the brain
@@ -45,6 +46,7 @@ type SimConfig {
     cart_mass: number,  # (kg), default 0.31
     pole_mass: number,  # (kg), default 0.055
     pole_length: number,  # (m), default 0.4
+    cart_gravity: 6.0, # (m/s^2)
     initial_cart_position: number<-MaxPosition .. MaxPosition>,  # (m), default 0 (center)
     initial_cart_velocity: number,   # (m/s), default 0
     initial_pole_angle: number,  # (rad), default 0
