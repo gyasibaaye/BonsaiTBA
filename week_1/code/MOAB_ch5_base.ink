@@ -117,11 +117,39 @@ graph (input: ObservableState) {
                 # Specify the configuration parameters that should be varied
                 # from one episode to the next during this lesson.
                 scenario {
+                    initial_x: number<-RadiusOfPlate * 0.2 .. RadiusOfPlate * 0.2>,
+                    initial_y: number<-RadiusOfPlate * 0.2 .. RadiusOfPlate * 0.2>,
+
+                    initial_vel_x: MaxInitialVelocity * 0.02,
+                    initial_vel_y: MaxInitialVelocity * 0.02,
+
+                    initial_pitch: 0.0,
+                    initial_roll: 0.0,
+                }
+            }
+            lesson `Randomize initial velocity` {
+                # Specify the configuration parameters that should be varied
+                # from one episode to the next during this lesson.
+                scenario {
                     initial_x: number<-RadiusOfPlate * 0.5 .. RadiusOfPlate * 0.5>,
                     initial_y: number<-RadiusOfPlate * 0.5 .. RadiusOfPlate * 0.5>,
 
-                    initial_vel_x: number<-MaxInitialVelocity * 0.02 .. MaxInitialVelocity * 0.02>,
-                    initial_vel_y: number<-MaxInitialVelocity * 0.02 .. MaxInitialVelocity * 0.02>,
+                    initial_vel_x: number<-MaxInitialVelocity * 0.05 .. MaxInitialVelocity * 0.05>,
+                    initial_vel_y: number<-MaxInitialVelocity * 0.05 .. MaxInitialVelocity * 0.05>,
+
+                    initial_pitch: 0.0,
+                    initial_roll: 0.0,
+                }
+            }
+            lesson `Randomize initial pitch` {
+                # Specify the configuration parameters that should be varied
+                # from one episode to the next during this lesson.
+                scenario {
+                    initial_x: number<-RadiusOfPlate * 0.5 .. RadiusOfPlate * 0.5>,
+                    initial_y: number<-RadiusOfPlate * 0.5 .. RadiusOfPlate * 0.5>,
+
+                    initial_vel_x: number<-MaxInitialVelocity * 0.05 .. MaxInitialVelocity * 0.05>,
+                    initial_vel_y: number<-MaxInitialVelocity * 0.05 .. MaxInitialVelocity * 0.05>,
 
                     initial_pitch: number<-0.2 .. 0.2>,
                     initial_roll: number<-0.2 .. 0.2>,
