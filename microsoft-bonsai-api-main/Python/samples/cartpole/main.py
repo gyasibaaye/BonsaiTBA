@@ -122,7 +122,7 @@ class TemplateSimulatorSession:
             - cart_mass   # (kg)
             - pole_mass   # (kg)
             - pole_length  # (m)
-            - gravity      # (m/s^2) # Sim now has added gravity parameter
+            - cart_gravity  # (m/s^2) # Sim now has added gravity parameter
             - initial_cart_position  # (m)
             - initial_cart_velocity  # (m/s)
             - initial_pole_angle  # (rad)
