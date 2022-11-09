@@ -1,0 +1,10 @@
+*.DS_Store
+*node_modules
+**/bin/*
+**/obj/*
+**/.vs
+.vscode/
+*.code-workspace
+*.env
+logs/
+log/
