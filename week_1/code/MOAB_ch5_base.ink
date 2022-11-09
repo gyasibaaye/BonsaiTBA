@@ -101,10 +101,12 @@ graph (input: ObservableState) {
                 avoid `Fall Off Plate`:
                     Math.Hypot(State.ball_x, State.ball_y)
                     in Goal.RangeAbove(RadiusOfPlate * 0.8)
-                drive `Center Of Plate`:
-                    [State.ball_x, State.ball_y]
-                    in Goal.Sphere([0, 0], CloseEnough)
-                
+                # Modified to minimize where we try to minimize the redius from center 
+                # circle: (x-h)^2 + (y-k)^2 = r^2. assuming (h,k) = (0,0) i.e. center of plate
+                # then r = sqrt(x^2+y^2). to make this extensible to any center on plate define (h,k)
+                minimize `Center Of Plate`: 
+                    Math.Sqrt((State.ball_x-0.0)**2 + (State.ball_y-0.0)**2)
+                    in Goal.RangeBelow(CloseEnough)
                 # Minimize the resultant vector of the velocities
                 minimize `Ball Speed`:
                 Math.Hypot(State.ball_vel_x, State.ball_vel_y)
