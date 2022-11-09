@@ -12,9 +12,10 @@ from collections import namedtuple
 DEFAULT_CART_MASS = 0.31  # kg
 DEFAULT_POLE_MASS = 0.055  # kg
 DEFAULT_POLE_LENGTH = 0.4  # m
+# moved gravity to a constant that can be changed
+DEFAULT_GRAVITY = 9.8  # a classic...
 
 # Constants not exposed for changing for now
-GRAVITY = 9.8  # a classic...
 FORCE_MAG = 1.0
 STEP_DURATION = 0.02  # seconds between state updates (20ms)
 TRACK_WIDTH = 2.0  # m
@@ -50,6 +51,7 @@ class CartPole:
         cart_mass: float = DEFAULT_CART_MASS,
         pole_mass: float = DEFAULT_POLE_MASS,
         pole_length: float = DEFAULT_POLE_LENGTH,
+        cart_gravity: float = DEFAULT_GRAVITY, # Added to reset so that ingling gravity parameter can be passed through to the sim 
         initial_cart_position: float = 0,
         initial_cart_velocity: float = 0,
         initial_pole_angle: float = 0,
@@ -59,6 +61,7 @@ class CartPole:
         self._cart_mass = cart_mass  # (kg)
         self._pole_mass = pole_mass  # (kg)
         self._pole_length = pole_length  # (m)
+        self._cart_gravity = cart_gravity # (m/s^2)
         self._cart_position = initial_cart_position  # (m)
         self._cart_velocity = initial_cart_velocity  # (m/s)
         self._pole_angle = normalize_angle(initial_pole_angle)  # (rad)
@@ -106,7 +109,8 @@ class CartPole:
         temp = (
             force + pole_mass_length * self._pole_angular_velocity ** 2 * sinTheta
         ) / total_mass
-        angularAccel = (GRAVITY * sinTheta - cosTheta * temp) / (
+        # replaced gravity reference to reference the self. parameter
+        angularAccel = (self._cart_gravity * sinTheta - cosTheta * temp) / (
             pole_half_length
             * (4.0 / 3.0 - (self._pole_mass * cosTheta ** 2) / total_mass)
         )
@@ -140,6 +144,7 @@ class CartPole:
             "cart_mass": self._cart_mass,
             "pole_mass": self._pole_mass,
             "pole_length": self._pole_length,
+            "cart_gravity": self._cart_gravity, #added return for current gravity
         }
 
 
