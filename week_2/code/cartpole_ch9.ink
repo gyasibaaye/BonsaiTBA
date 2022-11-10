@@ -68,6 +68,35 @@ graph (input: ObservedState): Action {
                 avoid OutOfRange:
                     Math.Abs(SimState.cart_position) in Goal.RangeAbove(MaxPosition)
             }
+            # lessons using acceration, added gravity as an additional lesson
+            lesson `Fixed Pole` {
+                scenario {
+                    pole_mass: 0.055,
+                    pole_length: 0.5,
+                    cart_gravity: 9.8
+                }
+            }
+            lesson `Randomize Pole Length` {
+                scenario {
+                    pole_mass: 0.055,
+                    pole_length: number<0.1 .. 1>,
+                    cart_gravity: 9.8
+                }
+            }
+            lesson `Randomize Pole Length & Mass` {
+                scenario {
+                    pole_length: number<0.1 .. 1>,
+                    pole_mass: number<0.01 .. 1>,
+                    cart_gravity: 9.8 # eath gravity
+                }
+            }
+            lesson `Randomize Pole Length, Mass, Gravity` {
+                scenario {
+                    pole_length: number<0.1 .. 1>,
+                    pole_mass: number<0.01 .. 1>,
+                    cart_gravity: number<9.7 .. 9.9> # earth gravity variation
+                }
+            }
         }
     }
 }
