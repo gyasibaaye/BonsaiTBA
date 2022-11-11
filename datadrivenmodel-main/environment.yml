@@ -1,0 +1,51 @@
+name: ddm
+channels:
+  - pytorch
+  - defaults
+  - conda-forge
+dependencies:
+  - python=3.8.11
+  - pip=21.0.1
+  - pytorch=1.8.0
+  - torchvision=0.9.0
+  - cryptography=3.1.1
+  # - jupyter
+  - pip:
+      - ray==1.2.0
+      - black==19.10b0
+      - joblib==0.17.0
+      - keras==2.4.3
+      - scikit-learn==0.23.2
+      - scikit-optimize==0.8.1
+      - skorch==0.9.0
+      - tensorboard==2.5.0
+      - tensorflow==2.4.1
+      - tensorboardX==2.2
+      - tensorflow-estimator==2.4.0
+      - microsoft-bonsai-api==0.1.3
+      - bonsai-cli==1.0.10
+      - pandas==1.1.4
+      - pyyaml==5.3.1
+      - pytest==6.2.1
+      - scipy==1.5.4
+      - h5py==2.10.0
+      - nbgrader==0.6.1
+      - tune-sklearn==0.2.1
+      - optuna==2.6.0
+      - hyperopt==0.2.5
+      - lightgbm==3.2.1
+      - xgboost==1.3.1
+      - python-dotenv==0.15.0
+      - scikit-optimize==0.8.1
+      # TODO: upgrade hydra to 1.1.0
+      - hydra-core==1.0.5
+      - hydra-colorlog==1.1.0
+      - mlflow==1.15.0
+      - natsort==7.1.0
+      - seaborn==0.11.1
+      - rich==9.13.0
+      - torchdyn==1.0.1
+      - torchdiffeq==0.2.2
+      - torchsde==0.2.5
+      - plotly==4.14.3
+      # - git+https://github.com/google-research/torchsde.git
