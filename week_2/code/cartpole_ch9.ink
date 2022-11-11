@@ -46,7 +46,7 @@ type SimConfig {
     cart_mass: number,  # (kg), default 0.31
     pole_mass: number,  # (kg), default 0.055
     pole_length: number,  # (m), default 0.4
-    cart_gravity: 6.0, # (m/s^2)
+    cart_gravity: number, # (m/s^2)
     initial_cart_position: number<-MaxPosition .. MaxPosition>,  # (m), default 0 (center)
     initial_cart_velocity: number,   # (m/s), default 0
     initial_pole_angle: number,  # (rad), default 0
@@ -69,32 +69,71 @@ graph (input: ObservedState): Action {
                     Math.Abs(SimState.cart_position) in Goal.RangeAbove(MaxPosition)
             }
             # lessons using acceration, added gravity as an additional lesson
+            # In terms of laying out the lessons we start with fixed conditions. 
             lesson `Fixed Pole` {
                 scenario {
                     pole_mass: 0.055,
                     pole_length: 0.5,
-                    cart_gravity: 9.8
+                    cart_gravity: 9.8,
+                    initial_cart_position: 0.0,
+                    target_pole_position: 0.0
                 }
             }
+            # then we improve the model's understanding of the system dynamics
             lesson `Randomize Pole Length` {
                 scenario {
                     pole_mass: 0.055,
                     pole_length: number<0.1 .. 1>,
-                    cart_gravity: 9.8
+                    cart_gravity: 9.8,
+                    initial_cart_position: 0.0,
+                    target_pole_position: 0.0
                 }
             }
             lesson `Randomize Pole Length & Mass` {
                 scenario {
                     pole_length: number<0.1 .. 1>,
-                    pole_mass: number<0.01 .. 1>,
-                    cart_gravity: 9.8 # eath gravity
+                    pole_mass: number<0.01 .. 1.5>,
+                    cart_gravity: 9.8, # earth gravity
+                    initial_cart_position: 0.0,
+                    target_pole_position: 0.0
                 }
             }
-            lesson `Randomize Pole Length, Mass, Gravity` {
+            lesson `Randomize gravity` {
                 scenario {
                     pole_length: number<0.1 .. 1>,
-                    pole_mass: number<0.01 .. 1>,
-                    cart_gravity: number<9.7 .. 9.9> # earth gravity variation
+                    pole_mass: number<0.01 .. 1.5>,
+                    cart_gravity: number<8.7 .. 10.9>, # earth gravity variation
+                    initial_cart_position: 0.0,
+                    target_pole_position: 0.0
+                }
+            }
+            # once system dynamics are mastered we  introduce different starting positions and target positions
+            lesson `Randomize initial position` {
+                scenario {
+                    pole_length: number<0.1 .. 1>,
+                    pole_mass: number<0.01 .. 1.5>,
+                    cart_gravity: number<8.7 .. 10.9>, # earth gravity variation
+                    initial_cart_position: number<-0.3 .. 0.3>,
+                    target_pole_position: 0.0
+                }
+            }
+            lesson `Randomize target position` {
+                scenario {
+                    pole_length: number<0.1 .. 1>,
+                    pole_mass: number<0.01 .. 1.5>,
+                    cart_gravity: number<8.7 .. 10.9>, # earth gravity variation
+                    initial_cart_position: number<-0.3 .. 0.3>,
+                    target_pole_position: number<-0.3 .. 0.3>
+                }
+            }
+            # once fundamental concepts are hopefully mastered we extend the range to make our model more robust
+            lesson `Randomize all parameters` {
+                scenario {
+                    pole_length: number<0.05 .. 2>,
+                    pole_mass: number<0.005 .. 2>,
+                    cart_gravity: number<7.7 .. 11.9>, # earth gravity variation
+                    initial_cart_position: number<-0.7 .. 0.7>,
+                    target_pole_position: number<-0.7 .. 0.7>
                 }
             }
         }
