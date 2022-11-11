@@ -42,8 +42,9 @@ class CartPole:
         self.x_threshold = TRACK_WIDTH / 2
 
         self.reset(
-            initial_pole_angle=random.uniform(-0.05, 0.05),
-            initial_angular_velocity=random.uniform(-0.05, 0.05),
+            # setting a fixed pole start angle at ~180 degrees to see the affects of gravity. Zeroed angular velocity to remove added energy to the system
+            initial_pole_angle=3.14,#random.uniform(-0.05, 0.05),
+            initial_angular_velocity=0#random.uniform(-0.05, 0.05),
         )
 
     def reset(
@@ -96,7 +97,8 @@ class CartPole:
         # Add a small amount of random noise to the force so
         # the policy can't succeed by simply applying zero
         # force each time.
-        force = FORCE_MAG * (action + random.uniform(-0.02, 0.02))
+        #zeroing out force to observe conservation of energy
+        force = 0#FORCE_MAG * (action + random.uniform(-0.02, 0.02))
 
         # Precompute some helpful quantities
         total_mass = self._cart_mass + self._pole_mass
@@ -114,7 +116,8 @@ class CartPole:
             pole_half_length
             * (4.0 / 3.0 - (self._pole_mass * cosTheta ** 2) / total_mass)
         )
-        linearAccel = temp - (pole_mass_length * angularAccel * cosTheta) / total_mass
+        #fixed cart position
+        linearAccel = 0#temp - (pole_mass_length * angularAccel * cosTheta) / total_mass
 
         self._cart_position = self._cart_position + STEP_DURATION * self._cart_velocity
         self._cart_velocity = self._cart_velocity + STEP_DURATION * linearAccel
@@ -163,12 +166,13 @@ if __name__ == "__main__":
 
     model = CartPole()
     viewer = create_viewer(model)
-    number_iterations = 300
+    number_iterations = 2000 #increased steps to observe behavior
     for i in range(number_iterations):
         print(", ".join([f"{k}: {v:.3f}" for k,v in model.state.items()]))
-        actions = [-1, 1]
+        actions = [-1,0,1]
         action = random.sample(actions, 1)[0]
-        state = viewer.model.step(action)
+        state = viewer.model.step(0) # not introducing external force action
+        ##state = viewer.model.step(action)
         viewer.update()
         if viewer.has_exit:
             viewer.close()
