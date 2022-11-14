@@ -73,67 +73,21 @@ graph (input: ObservedState): Action {
             lesson `Fixed Pole` {
                 scenario {
                     pole_mass: 0.055,
-                    pole_length: 0.5,
-                    cart_gravity: 9.8,
-                    initial_cart_position: 0.0,
-                    target_pole_position: 0.0
+                    pole_length: 0.5
                 }
             }
             # then we improve the model's understanding of the system dynamics
             lesson `Randomize Pole Length` {
                 scenario {
                     pole_mass: 0.055,
-                    pole_length: number<0.1 .. 1>,
-                    cart_gravity: 9.8,
-                    initial_cart_position: 0.0,
-                    target_pole_position: 0.0
+                    pole_length: number<0.1 .. 1>
                 }
             }
             lesson `Randomize Pole Length & Mass` {
                 scenario {
                     pole_length: number<0.1 .. 1>,
-                    pole_mass: number<0.01 .. 1.5>,
-                    cart_gravity: 9.8, # earth gravity
-                    initial_cart_position: 0.0,
-                    target_pole_position: 0.0
-                }
-            }
-            lesson `Randomize gravity` {
-                scenario {
-                    pole_length: number<0.1 .. 1>,
-                    pole_mass: number<0.01 .. 1.5>,
-                    cart_gravity: number<8.7 .. 10.9>, # earth gravity variation
-                    initial_cart_position: 0.0,
-                    target_pole_position: 0.0
-                }
-            }
-            # once system dynamics are mastered we  introduce different starting positions and target positions
-            lesson `Randomize initial position` {
-                scenario {
-                    pole_length: number<0.1 .. 1>,
-                    pole_mass: number<0.01 .. 1.5>,
-                    cart_gravity: number<8.7 .. 10.9>, # earth gravity variation
-                    initial_cart_position: number<-0.3 .. 0.3>,
-                    target_pole_position: 0.0
-                }
-            }
-            lesson `Randomize target position` {
-                scenario {
-                    pole_length: number<0.1 .. 1>,
-                    pole_mass: number<0.01 .. 1.5>,
-                    cart_gravity: number<8.7 .. 10.9>, # earth gravity variation
-                    initial_cart_position: number<-0.3 .. 0.3>,
-                    target_pole_position: number<-0.3 .. 0.3>
-                }
-            }
-            # once fundamental concepts are hopefully mastered we extend the range to make our model more robust
-            lesson `Randomize all parameters` {
-                scenario {
-                    pole_length: number<0.05 .. 2>,
-                    pole_mass: number<0.005 .. 2>,
-                    cart_gravity: number<7.7 .. 11.9>, # earth gravity variation
-                    initial_cart_position: number<-0.7 .. 0.7>,
-                    target_pole_position: number<-0.7 .. 0.7>
+                    pole_mass: number<0.01 .. 1.5>
+
                 }
             }
         }
