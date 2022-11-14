@@ -80,14 +80,31 @@ graph (input: ObservedState): Action {
             lesson `Randomize Pole Length` {
                 scenario {
                     pole_mass: 0.055,
-                    pole_length: number<0.1 .. 1>
+                    pole_length: number<0.1 .. 1>,
+                    cart_gravity: 9.8
                 }
             }
             lesson `Randomize Pole Length & Mass` {
                 scenario {
                     pole_length: number<0.1 .. 1>,
-                    pole_mass: number<0.01 .. 1.5>
-
+                    pole_mass: number<0.01 .. 1.5>,
+                    cart_gravity: 9.8
+                }
+            }
+            # then we introduce gravity variability
+            lesson `Randomize gravity` {
+                scenario {
+                    pole_length: number<0.1 .. 1>,
+                    pole_mass: number<0.01 .. 1.5>,
+                    cart_gravity: number<7.7 .. 11.9> # earth gravity variation
+                }
+            }
+            # once fundamental concepts are hopefully mastered we extend the range to make our model more robust
+            lesson `Randomize all parameters` {
+                scenario {
+                    pole_length: number<0.05 .. 3>,
+                    pole_mass: number<0.005 .. 3>,
+                    cart_gravity: number<5.0 .. 15> #
                 }
             }
         }
